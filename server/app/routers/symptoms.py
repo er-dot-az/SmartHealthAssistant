@@ -10,6 +10,7 @@ router = APIRouter()
 
 class SymptomInput(BaseModel):
 	symptoms: list[str]
+	context: str = None  # Optional RAG context from frontend
 
 
 @router.post("/symptoms/check")
@@ -22,23 +23,10 @@ def check_symptoms(data: SymptomInput):
 		api_key=AZURE_OPENAI_API_KEY,
 	)
 
-	# Simple RAG: local context for symptoms
-	rag_contexts = {
-		"headache": "Headaches can be caused by a variety of factors including stress, dehydration, infection, reading or neurological conditions. It can also be caused due to excessive perspiration. Common treatments include hydration, rest, and over-the-counter pain relief. Seek medical attention if headaches are severe, persistent, or accompanied by other symptoms such as vision changes or fever.",
-		# Add more symptom contexts here
-	}
-
 	# Logging: print received symptoms
 	print(f"Received symptoms: {data.symptoms}")
-	context = ""
-	for symptom in data.symptoms:
-		normalized = symptom.lower().strip()
-		print(f"Checking symptom: '{symptom}' (normalized: '{normalized}')")
-		if normalized in rag_contexts:
-			print(f"Match found for: '{normalized}'")
-			context += f"\nSymptom: {symptom}\nContext: {rag_contexts[normalized]}\n"
-		else:
-			print(f"No match for: '{normalized}'")
+	print(f"Received context: {data.context}")
+	context = data.context if data.context else ""
 
 	# Compose user message from symptoms
 	user_message = f"Patient reports the following symptoms: {', '.join(data.symptoms)}. What are the possible diagnoses and recommendations?"
