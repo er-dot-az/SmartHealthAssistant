@@ -1,0 +1,8 @@
+
+fastapi
+uvicorn
+azure-identity
+azure-ai-ml
+python-multipart
+pydantic
+openai

@@ -1,0 +1,68 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+  background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80') no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh;
+}
+
+.app-container {
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 32px 24px;
+}
+
+h1, h2 {
+  color: #2d3e50;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+input, textarea {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #b0bec5;
+  font-size: 1rem;
+}
+
+button {
+  background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: linear-gradient(90deg, #185a9d 0%, #43cea2 100%);
+}
+
+.card {
+  background: #f7fafc;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.result {
+  background: #e3f2fd;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 12px;
+  color: #185a9d;
+  font-weight: 500;
+}
