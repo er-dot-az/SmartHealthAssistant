@@ -28,11 +28,17 @@ def check_symptoms(data: SymptomInput):
 		# Add more symptom contexts here
 	}
 
-	# Find relevant context for submitted symptoms
+	# Logging: print received symptoms
+	print(f"Received symptoms: {data.symptoms}")
 	context = ""
 	for symptom in data.symptoms:
-		if symptom.lower() in rag_contexts:
-			context += f"\nSymptom: {symptom}\nContext: {rag_contexts[symptom.lower()]}\n"
+		normalized = symptom.lower().strip()
+		print(f"Checking symptom: '{symptom}' (normalized: '{normalized}')")
+		if normalized in rag_contexts:
+			print(f"Match found for: '{normalized}'")
+			context += f"\nSymptom: {symptom}\nContext: {rag_contexts[normalized]}\n"
+		else:
+			print(f"No match for: '{normalized}'")
 
 	# Compose user message from symptoms
 	user_message = f"Patient reports the following symptoms: {', '.join(data.symptoms)}. What are the possible diagnoses and recommendations?"
@@ -47,23 +53,24 @@ def check_symptoms(data: SymptomInput):
 	else:
 		system_prompt = "You are a helpful healthcare assistant. Provide possible diagnoses and recommendations based on the symptoms provided."
 
-		try:
-			response = client.chat.completions.create(
-				messages=[
-					{
-						"role": "system",
-						"content": system_prompt,
-					},
-					{
-						"role": "user",
-						"content": user_message,
-					}
-				],
-				max_tokens=4096,
-				temperature=1.0,
-				top_p=1.0,
-				model=deployment
-			)
-			return {"response": response.choices[0].message.content}
-		except Exception as e:
-			raise HTTPException(status_code=500, detail=str(e))
+	print("System Prompt:", system_prompt)
+	try:
+		response = client.chat.completions.create(
+			messages=[
+				{
+					"role": "system",
+					"content": system_prompt,
+				},
+				{
+					"role": "user",
+					"content": user_message,
+				}
+			],
+			max_tokens=4096,
+			temperature=1.0,
+			top_p=1.0,
+			model=deployment
+		)
+		return {"response": response.choices[0].message.content}
+	except Exception as e:
+		raise HTTPException(status_code=500, detail=str(e))
