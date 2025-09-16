@@ -7,6 +7,11 @@ services:
       - "8000:8000"
     volumes:
       - ./server:/app
+    environment:
+      - KEY_VAULT_URL=https://kvsmarthealthassistant.vault.azure.net/
+      - AZURE_CLIENT_ID=06d9436a-0317-4194-8769-9dae8ac07dae
+      - AZURE_TENANT_ID=4d85581f-eb20-4125-a6d6-40c4e441b0d6
+      - AZURE_CLIENT_SECRET=
   frontend:
     build:
       context: ./frontend

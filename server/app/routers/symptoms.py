@@ -2,7 +2,7 @@
 
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from app.config import AZURE_OPENAI_ENDPOINT, AZURE_OPENAI_API_KEY
+from app.config import GPT41_ENDPOINT,GPT41_API_KEY
 import os
 from openai import AzureOpenAI
 
@@ -15,12 +15,12 @@ class SymptomInput(BaseModel):
 
 @router.post("/symptoms/check")
 def check_symptoms(data: SymptomInput):
-	deployment = os.getenv("AZURE_OPENAI_DEPLOYMENT", "gpt-4o")
-	api_version = os.getenv("AZURE_OPENAI_API_VERSION", "2024-12-01-preview")
+	deployment = os.getenv("AZURE_OPENAI_DEPLOYMENT", "gpt-4.1")
+	api_version = os.getenv("AZURE_OPENAI_API_VERSION", "2025-01-01-preview")
 	client = AzureOpenAI(
 		api_version=api_version,
-		azure_endpoint=AZURE_OPENAI_ENDPOINT,
-		api_key=AZURE_OPENAI_API_KEY,
+		azure_endpoint=GPT41_ENDPOINT,
+		api_key=GPT41_API_KEY
 	)
 
 	# Logging: print received symptoms

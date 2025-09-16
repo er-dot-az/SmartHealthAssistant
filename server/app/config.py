@@ -1,12 +1,18 @@
+from azure.identity import DefaultAzureCredential
+from azure.keyvault.secrets import SecretClient
 import os
 
-# Symptoms router config
-AZURE_OPENAI_ENDPOINT = os.getenv("AZURE_OPENAI_ENDPOINT", "https://azureaiservices766909842264.openai.azure.com/openai/deployments/gpt-4.1/chat/completions?api-version=2025-01-01-preview")
-AZURE_OPENAI_API_KEY = os.getenv("AZURE_OPENAI_API_KEY", "")
+KEY_VAULT_URL = os.getenv("KEY_VAULT_URL")  # Set this in your environment
 
-# Imaging router config
-IMAGING_ENDPOINT_NAME = os.getenv("IMAGING_ENDPOINT_NAME", "https://debashishsghosh-project-wrpbp.eastus.inference.ml.azure.com/score")
+credential = DefaultAzureCredential()
+client = SecretClient(vault_url=KEY_VAULT_URL, credential=credential)
 
-# BioDictionary router config
-BIOGPT_URL = os.getenv("BIOGPT_URL", "https://debashishsghosh-project-ywunp.eastus.inference.ml.azure.com/score")
-BIOGPT_API_KEY = os.getenv("BIOGPT_API_KEY", "")
+def get_secret(secret_name):
+	return client.get_secret(secret_name).value
+
+# Fetch secrets from Azure Key Vault
+BIOGPT_API_KEY = get_secret("BIOGPT-API-KEY")
+BIOGPT_URL = get_secret("BIOGPT-ENDPOINT")
+GPT41_API_KEY = get_secret("GPT41-API-KEY")
+GPT41_ENDPOINT = get_secret("GPT41-ENDPOINT")
+IMAGING_ENDPOINT = get_secret("IMAGING-ENDPOINT")

@@ -6,3 +6,4 @@ azure-ai-ml
 python-multipart
 pydantic
 openai
+azure-keyvault-secrets

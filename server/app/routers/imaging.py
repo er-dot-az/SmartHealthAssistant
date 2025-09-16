@@ -3,7 +3,7 @@ from fastapi import APIRouter, UploadFile, File, Form
 import base64
 import json
 import os
-from app.config import IMAGING_ENDPOINT_NAME
+from app.config import IMAGING_ENDPOINT
 from urllib.parse import urlparse
 from azure.identity import DefaultAzureCredential
 import urllib.request
@@ -62,7 +62,7 @@ async def analyze_image(
 	comparison: str = Form(...)
 ) -> dict:
 	credential = DefaultAzureCredential()
-	endpoint_name = IMAGING_ENDPOINT_NAME
+	endpoint_name = IMAGING_ENDPOINT
 	deployment_name = "cxrreportgen-9"
 	normalized_endpoint_name = normalize_endpoint_name(endpoint_name)
 	input_data = {
