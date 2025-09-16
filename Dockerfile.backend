@@ -2,10 +2,6 @@
 FROM python:3.10-slim
 WORKDIR /app
 COPY server /app
-ENV KEY_VAULT_URL="https://kvsmarthealthassistant.vault.azure.net/"
-ENV AZURE_CLIENT_ID="06d9436a-0317-4194-8769-9dae8ac07dae"
-ENV AZURE_TENANT_ID="4d85581f-eb20-4125-a6d6-40c4e441b0d6"
-ENV AZURE_CLIENT_SECRET=""
 RUN pip install -r /app/requirements.txt
 EXPOSE 8000
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
