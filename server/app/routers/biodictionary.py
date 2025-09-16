@@ -24,6 +24,8 @@ def lookup_biodictionary(input_data: BioDictionaryInput):
         parameters["max_length"] = input_data.max_length
     if input_data.num_beams is not None:
         parameters["num_beams"] = input_data.num_beams
+    # Removed seed parameter: not supported by remote API
+    parameters["early_stopping"] = True
     if parameters:
         data["parameters"] = parameters
     body = str.encode(json.dumps(data))
