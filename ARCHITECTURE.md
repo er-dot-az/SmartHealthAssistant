@@ -1,3 +1,44 @@
+# SmartHealthAssistant Architecture Diagram
+
+```mermaid
+flowchart TD
+   User[User]
+   Frontend[React Frontend]
+   Backend[FastAPI Backend]
+   OpenAI[Azure OpenAI (RAG, GPT-4.1)]
+   BioGPT[BioGPT (Hugging Face)]
+   Imaging[MedImageInsight]
+   KeyVault[Azure Key Vault]
+   HealthcareSites[Healthcare Sites]
+
+   User --> Frontend
+   Frontend --> Backend
+   Backend --> OpenAI
+   Backend --> BioGPT
+   Backend --> MedImagagingInsight
+   Backend --> KeyVault
+   Backend --> HealthcareSites
+
+   subgraph Deployment
+      AKS[Azure AKS (Kubernetes)]
+      Docker[Docker Containers]
+   end
+   Backend --> AKS
+   Frontend --> AKS
+   AKS --> Docker
+```
+
+**Components:**
+- User: End user (patient, clinician)
+- React Frontend: UI for symptom input, context selection, image upload
+- FastAPI Backend: REST APIs for all features
+- Azure OpenAI: RAG, GPT-4 for chat and context
+- BioGPT: Biomedical NLP
+- Azure ML Imaging Model: Medical image analysis
+- Azure Key Vault: Secure secrets management
+- Healthcare Sites: External reputable sources
+- Azure AKS: Orchestrates containers
+- Docker: Containerization for backend/frontend
 # Architecture Diagram
 
 ```

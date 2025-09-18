@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from app.routers import genericimaging
 
 # Import your routers
 from .routers import health, imaging, risk, symptoms
@@ -22,6 +23,7 @@ app.include_router(imaging.router)
 #app.include_router(risk.router)
 app.include_router(symptoms.router)
 app.include_router(biodictionary.router)
+app.include_router(genericimaging.router)
 
 @app.get("/")
 def root():

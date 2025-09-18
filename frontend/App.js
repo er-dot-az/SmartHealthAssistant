@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import GenericImaging from './src/GenericImaging';
 
 function App() {
   const [option, setOption] = useState('symptoms');
@@ -9,11 +10,13 @@ function App() {
         <button onClick={() => setOption('symptoms')}>Symptoms</button>
         <button onClick={() => setOption('image')}>Image Analysis</button>
         <button onClick={() => setOption('bio')}>BioDictionary Lookup</button>
+        <button onClick={() => setOption('genericimaging')}>Generic Imaging</button>
       </div>
       <div style={{ marginTop: 32 }}>
         {option === 'symptoms' && <SymptomsForm />}
         {option === 'image' && <ImageAnalysisForm />}
         {option === 'bio' && <BioDictionaryForm />}
+        {option === 'genericimaging' && <GenericImaging />}
       </div>
     </div>
   );
